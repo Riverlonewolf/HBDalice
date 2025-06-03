@@ -1,0 +1,170 @@
+/* app/components/GiftBoxDisplay.module.css */
+
+.giftBoxPageWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    background: var(--bg-gift); /* Defined in globals.css */
+    z-index: 250; /* Ensure it's correctly layered */
+}
+
+.giftContainer {
+    text-align: center;
+    position: relative;
+}
+
+.giftInstruction {
+    font-family: var(--font-kanit), sans-serif; /* Use CSS var from layout */
+    font-size: 1.3em;
+    color: #fff; /* White text on gift page background */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    animation: pulseTextGlobal 2s infinite ease-in-out; /* Assumes pulseTextGlobal is in globals.css */
+}
+
+.giftBoxClickable {
+    width: 200px;
+    height: 180px;
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+}
+.giftBoxClickable:hover {
+    transform: scale(1.05);
+}
+
+.giftLidElement {
+    width: 100%;
+    height: 60px;
+    background-color: var(--gift-box-lid-color); /* from globals.css */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -3px 5px rgba(0,0,0,0.2) inset, 0 2px 3px rgba(0,0,0,0.1);
+    transform-origin: bottom center;
+}
+
+.giftBaseElement {
+    width: 100%;
+    height: 120px;
+    background-color: var(--gift-box-base-color); /* from globals.css */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2) inset, 0 -2px 3px rgba(0,0,0,0.1);
+}
+
+/* Ribbon Styles */
+.giftRibbon {
+    background-color: var(--gift-box-ribbon-color); /* from globals.css */
+    position: absolute;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+.giftRibbon.topLeft, .giftRibbon.topRight { /* More specific class names */
+    width: 25px;
+    height: 100%;
+    top: 0;
+}
+.giftRibbon.topLeft { left: calc(50% - 25px - 5px); }
+.giftRibbon.topRight { right: calc(50% - 25px - 5px); }
+
+.giftRibbon.sideLeft, .giftRibbon.sideRight {
+    width: 25px;
+    height: 100%;
+    bottom: 0;
+}
+.giftRibbon.sideLeft { left: calc(50% - 25px - 5px); }
+.giftRibbon.sideRight { right: calc(50% - 25px - 5px); }
+
+/* Bow (โบว์) */
+.giftBowElement {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
+    z-index: 3;
+    width: 90px;
+    height: 70px;
+}
+.giftBowLoop {
+    width: 40px;
+    height: 55px;
+    background-color: var(--gift-box-ribbon-color);
+    border-radius: 20px 0 20px 0;
+    position: absolute;
+    top: 0;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+.giftBowLoop.left { left: 0; transform: rotate(-35deg); }
+.giftBowLoop.right { right: 0; transform: rotate(35deg) scaleX(-1); }
+
+.giftBowCenterKnot {
+    width: 20px;
+    height: 20px;
+    background-color: var(--gift-box-ribbon-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+/* Animation for opening gift box - triggered by .opened class */
+.giftBoxClickable.opened .giftLidElement {
+    animation: openLidAnim 2s forwards cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Adjust duration as needed */
+}
+.giftBoxClickable.opened .giftBowElement {
+    animation: bowFlyOffAnim 1.8s 0.2s forwards ease-out; /* Adjust duration and delay */
+}
+
+@keyframes openLidAnim {
+    0% { transform: rotateX(0deg) translateY(0); }
+    60% { transform: rotateX(-120deg) translateY(-40px) translateZ(30px); }
+    100% { transform: rotateX(-110deg) translateY(-150px) translateZ(20px); opacity: 0; }
+}
+
+@keyframes bowFlyOffAnim {
+    0% { transform: translateX(-50%) translateY(0) scale(0.9) rotate(0deg); opacity: 1; }
+    100% { transform: translateX(-50%) translateY(-80px) scale(0.7) rotate(20deg); opacity: 0; }
+}
+
+/* Responsive Adjustments for Gift Box */
+@media (max-width: 600px) {
+    .giftBoxClickable {
+        width: 160px;
+        height: 144px;
+    }
+    .giftLidElement { height: 48px; }
+    .giftBaseElement { height: 96px; }
+
+    .giftRibbon.topLeft, .giftRibbon.topRight,
+    .giftRibbon.sideLeft, .giftRibbon.sideRight {
+        width: 20px;
+    }
+    .giftRibbon.topLeft { left: calc(50% - 20px - 4px); }
+    .giftRibbon.topRight { right: calc(50% - 20px - 4px); }
+    .giftRibbon.sideLeft { left: calc(50% - 20px - 4px); }
+    .giftRibbon.sideRight { right: calc(50% - 20px - 4px); }
+
+    .giftBowElement {
+        top: -20px;
+        transform: translateX(-50%) scale(0.8);
+    }
+    .giftInstruction {
+        font-size: 1.1em;
+    }
+}

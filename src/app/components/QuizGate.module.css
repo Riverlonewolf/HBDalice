@@ -1,0 +1,149 @@
+/* app/components/QuizGate.module.css */
+
+.quizGateWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background: var(--bg-quiz); */ /* พื้นหลังไล่ระดับสีน้ำเงิน-ม่วง ควรมาจาก globals.css หรือ page.js */
+    /* ในรูปตัวอย่าง พื้นหลังของ wrapper ดูเหมือนจะเป็นสีไล่ระดับเดียวกับ body */
+    /* ถ้า page.js กำหนด background ให้ wrapper หลักแล้ว ตรงนี้อาจจะไม่ต้องใส่ background อีก */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 300;
+}
+
+.quizContentBox {
+    background-color: #ffffff; /* สีขาวทึบเหมือนในรูป */
+    color: #333745; /* สีข้อความเข้ม บนพื้นขาว */
+    padding: 40px 35px; /* เพิ่ม padding บน-ล่าง */
+    border-radius: 24px; /* โค้งมนมากขึ้น */
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0,0,0,0.05); /* เงาที่ดูนุ่มนวลและมีมิติ */
+    max-width: 480px; /* ปรับความกว้างให้ใกล้เคียง */
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* จัดเนื้อหาให้อยู่กลาง */
+}
+
+.quizTitleText {
+    font-family: var(--font-kanit), sans-serif; /* หรือฟอนต์ที่คุณต้องการสำหรับหัวข้อ */
+    font-size: 1.8em; /* ปรับขนาดตามความเหมาะสม */
+    font-weight: 700; /* ตัวหนา */
+    color: #333745; /* สีเดียวกับข้อความทั่วไป */
+    margin-bottom: 8px; /* ลดระยะห่างด้านล่าง */
+    display: flex; /* สำหรับจัด icon กับ text */
+    align-items: center;
+    gap: 10px; /* ระยะห่างระหว่าง icon กับ text */
+}
+
+/* Icon สำหรับหัวข้อ Quiz (คุณจะต้องเพิ่ม SVG หรือ Font Icon ใน JSX) */
+.quizTitleIcon {
+    width: 32px; /* ขนาด icon */
+    height: 32px;
+    background-color: var(--primary-color); /* สีชมพูของ icon */
+    border-radius: 50%;
+    /* ถ้าเป็น SVG ก็ใส่ SVG content ตรงนี้ หรือใช้ <img> */
+    /* ตัวอย่างง่ายๆ ด้วย div */
+    display: inline-block; /*เพื่อให้แสดงผล*/
+}
+
+
+.quizQuestionP { /* Class ใหม่สำหรับคำถามโดยเฉพาะ */
+    font-family: var(--font-kanit), sans-serif;
+    font-size: 1.1em; /* ปรับขนาด */
+    line-height: 1.6;
+    color: #555e76; /* สีเทาเข้มนิดๆ */
+    margin-bottom: 30px; /* เพิ่มระยะห่างก่อนถึงตัวเลือก */
+    max-width: 90%; /* ไม่ให้คำถามยาวเกินไป */
+}
+
+.quizOptionsDiv {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+    width: 100%;
+    max-width: 100%; /* ให้ปุ่มเต็มความกว้างของ content box */
+    margin-bottom: 25px;
+}
+
+.quizOptionBtn {
+    background-color: #f7f8fc; /* สีพื้นหลังปุ่มตัวเลือก (เทาอ่อนมาก) */
+    color: #333745; /* สีข้อความบนปุ่ม */
+    border: 1px solid #e8eaf0; /* สีขอบปุ่ม */
+    padding: 16px 20px; /* เพิ่ม padding ให้ปุ่มดูใหญ่ขึ้น */
+    font-family: var(--font-kanit), sans-serif;
+    font-size: 0.95em; /* ปรับขนาด font ในปุ่ม */
+    font-weight: 500; /* Medium weight */
+    border-radius: 12px; /* โค้งมนปานกลาง */
+    cursor: pointer;
+    text-align: center; /* จัดข้อความให้อยู่กลางปุ่ม */
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease-out, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.quizOptionBtn:hover:not(.disabled) {
+    background-color: #ffffff;
+    border-color: var(--primary-color); /* สีชมพูเมื่อ hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb, 248, 205, 218), 0.3); /* เงาสีชมพูอ่อนๆ เมื่อ hover */
+}
+/* สร้างตัวแปร --primary-color-rgb ใน globals.css ถ้ายังไม่มี
+   :root { --primary-color-rgb: 248, 205, 218; }
+*/
+
+.quizOptionBtn:active:not(.disabled) {
+    transform: scale(0.98) translateY(0);
+    box-shadow: 0 2px 6px rgba(var(--primary-color-rgb), 0.2);
+}
+
+.quizOptionBtn.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #f0f2f5;
+    border-color: #dde0e5;
+}
+
+.quizFeedbackP {
+    margin-top: 20px;
+    font-size: 1em;
+    font-weight: 600;
+    min-height: 1.5em;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+.quizFeedbackP.visible { opacity: 1; }
+.quizFeedbackP.correct { color: #28a745; } /* สีเขียวสำหรับถูก */
+.quizFeedbackP.incorrect { color: #dc3545; } /* สีแดงสำหรับผิด */
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .quizContentBox {
+        padding: 30px 25px;
+    }
+    .quizTitleText {
+        font-size: 1.6em;
+    }
+    .quizTitleIcon {
+        width: 28px;
+        height: 28px;
+    }
+    .quizQuestionP {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+    .quizOptionBtn {
+        padding: 14px 18px;
+        font-size: 0.9em;
+    }
+    .quizOptionsDiv {
+        gap: 12px;
+    }
+}

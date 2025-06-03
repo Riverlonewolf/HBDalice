@@ -1,0 +1,374 @@
+/* BirthdayCardDisplay.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Lora:wght@300;400;500&display=swap');
+
+.elegantCardPageWrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, 
+        #f5f7fa 0%, 
+        #c3cfe2 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.elegantCardPageWrapper.loaded {
+    opacity: 1;
+}
+
+.backgroundPattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.03;
+    background-image: 
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+    z-index: 1;
+}
+
+.elegantCard {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        0 2px 4px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    z-index: 5;
+    transform: translateY(20px);
+    animation: elegantEntrance 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes elegantEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.elegantCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.12),
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease-out;
+}
+
+.confettiContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.cardContent {
+    position: relative;
+    padding: 3.5rem 3rem;
+    z-index: 2;
+}
+
+.elegantHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.titleSection {
+    position: relative;
+}
+
+.mainTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.decorativeLine {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        #d4af37, 
+        transparent);
+    margin: 0 auto 1.5rem auto;
+    position: relative;
+}
+
+.decorativeLine::before {
+    content: '◆';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #d4af37;
+    font-size: 12px;
+    background: white;
+    padding: 0 8px;
+}
+
+.nameTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 500;
+    color: #34495e;
+    margin: 0;
+    position: relative;
+}
+
+.nameTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(212, 175, 55, 0.3), 
+        transparent);
+}
+
+.elegantBody {
+    margin: 3rem 0;
+}
+
+.messageContainer {
+    padding: 2.5rem 2rem;
+    background: rgba(248, 249, 250, 0.8);
+    border-radius: 8px;
+    border-left: 4px solid #d4af37;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.messageContainer::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 3rem;
+    color: rgba(212, 175, 55, 0.3);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+}
+
+.messageContainer::after {
+    content: '"';
+    position: absolute;
+    bottom: 0.5rem;
+    right: 1rem;
+    font-size: 3rem;
+    color: rgba(212, 175, 55, 0.3);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+}
+
+.wishMessage {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #2c3e50;
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+}
+
+.signatureContainer {
+    text-align: center;
+    position: relative;
+}
+
+.signatureLine {
+    width: 120px;
+    height: 1px;
+    background: #bdc3c7;
+    margin: 0 auto 1.5rem auto;
+}
+
+.fromSignature {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.withLove {
+    font-style: italic;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.senderSignature {
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #34495e;
+    position: relative;
+}
+
+.senderSignature::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent, 
+        #d4af37, 
+        transparent);
+}
+
+.elegantFooter {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.subtleIcons {
+    font-size: 1.5rem;
+    opacity: 0.6;
+}
+
+/* Elegant Confetti Styles */
+.elegant-confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    animation: elegantFall linear infinite;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+@keyframes elegantFall {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) rotate(0deg);
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Subtle hover effects */
+.mainTitle {
+    transition: color 0.3s ease;
+}
+
+.elegantCard:hover .mainTitle {
+    color: #34495e;
+}
+
+.nameTitle {
+    transition: color 0.3s ease;
+}
+
+.elegantCard:hover .nameTitle {
+    color: #2c3e50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .elegantCardPageWrapper {
+        padding: 1rem;
+    }
+    
+    .cardContent {
+        padding: 2.5rem 2rem;
+    }
+    
+    .mainTitle {
+        font-size: 2rem;
+    }
+    
+    .nameTitle {
+        font-size: 1.6rem;
+    }
+    
+    .wishMessage {
+        font-size: 1rem;
+    }
+    
+    .messageContainer {
+        padding: 2rem 1.5rem;
+    }
+    
+    .messageContainer::before,
+    .messageContainer::after {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cardContent {
+        padding: 2rem 1.5rem;
+    }
+    
+    .mainTitle {
+        font-size: 1.8rem;
+    }
+    
+    .nameTitle {
+        font-size: 1.4rem;
+    }
+    
+    .messageContainer {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Print styles for premium look */
+@media print {
+    .elegantCardPageWrapper {
+        background: white;
+    }
+    
+    .elegantCard {
+        box-shadow: none;
+        border: 2px solid #d4af37;
+    }
+    
+    .confettiContainer {
+        display: none;
+    }
+}

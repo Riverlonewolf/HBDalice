@@ -1,26 +1,312 @@
-@import "tailwindcss";
+/* styles/globals.css */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    /* --- Color Palette --- */
+    --primary-color: #f8cdda;         /* ชมพูพาสเทลอ่อน */
+    --secondary-color: #a7d8de;       /* ฟ้าพาสเทลอ่อน */
+    --accent-color: #ffd700;          /* ทอง */
+    --accent-color-rgb: 255, 215, 0;  /* ค่า RGB ของสีทอง สำหรับ rgba() */
+
+    --text-color-dark: #333745;       /* สีเทาเข้มสำหรับข้อความบนพื้นสว่าง */
+    --text-color-light: #e0e1dd;      /* สีขาวนวลสำหรับข้อความบนพื้นเข้ม */
+    --text-subtle: #777;              /* สีเทาอ่อนสำหรับข้อความรอง */
+
+    --card-bg: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.15); /* เงาที่นุ่มนวลขึ้น */
+
+    /* Background Gradients for Stages */
+    --bg-quiz: linear-gradient(135deg, #4a5568, #2d3748);      /* เทาเข้ม-น้ำเงินเข้ม */
+    --bg-intro: linear-gradient(135deg, #3a506b, #1c2541);     /* น้ำเงินเข้ม-กรมท่า */
+    --bg-gift: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* ชมพู-ฟ้า */
+    --bg-card: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* ชมพู-ฟ้า */
+
+    /* Gift Box Specific Colors */
+    --gift-box-lid-color: #e74c3c;    /* แดงสด */
+    --gift-box-base-color: #c0392b;   /* แดงเข้ม */
+    --gift-box-ribbon-color: var(--accent-color);
+
+    /* --- Fonts --- */
+    /* @next/font จะจัดการเรื่องนี้ผ่าน CSS Variables ที่เราตั้งใน layout.js */
+    /* --font-main: 'Kanit', sans-serif;
+    --font-display: 'Pacifico', cursive; */
+    /* เราจะใช้ var(--font-kanit) และ var(--font-pacifico) ที่มาจาก layout.js */
+
+    /* --- Animation Durations --- */
+    --animation-duration-fast: 0.5s;
+    --animation-duration-normal: 0.8s;
+    --animation-duration-slow: 1.2s;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* --- Base & Reset Styles --- */
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-kanit), 'Kanit', 'Noto Sans Thai', sans-serif;
+    color: var(--text-color-dark);
+    background-color: var(--bg-quiz);
+    line-height: 1.6;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+/* --- Global Wrapper for Each Stage (used by page.js) --- */
+/* This class can be applied to the main div of each stage component if they manage their own full screen */
+/* Or to a wrapper div in page.js */
+/*
+.page-stage-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+*/
+/* Note: In the last page.js, each component (QuizGate, StoryFlow, etc.)
+   is expected to have its own full-page wrapper with background.
+   So a generic .page-stage-wrapper might not be strictly needed here
+   if each component handles its own full screen styling.
+*/
+
+
+/* --- Global Animation Keyframes --- */
+
+/* Pulse text for instructions */
+@keyframes pulseTextGlobal {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.02); }
+}
+
+/* Confetti Animation */
+@keyframes fallGlobal {
+    0% {
+        transform: translateY(-20vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(120vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Global Confetti Styles (if createConfetti uses these classes) */
+.confetti-global {
+    width: 8px;
+    height: 15px;
+    background-color: var(--primary-color);
+    position: absolute; /* Will be positioned by JS */
+    opacity: 0.7;
+    animation: fallGlobal 5s linear infinite;
+    pointer-events: none; /* Ensure confetti doesn't block clicks */
+}
+
+.confetti-global.shape2 {
+    background-color: var(--secondary-color);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.confetti-global.shape3 {
+    background-color: var(--accent-color);
+    transform: rotate(45deg); /* Initial rotation, animation handles the fall rotation */
+}
+
+
+/* --- Global Helper Classes (Optional) --- */
+.text-center {
+    text-align: center;
+}
+
+.hidden {
+    display: none !important; /* Force hide */
+}
+
+/* Utility classes from Animate.css are imported via JS,
+   but you can override durations here if needed, e.g.: */
+/*
+.animate__animated.animate__fast {
+  animation-duration: var(--animation-duration-fast) !important;
+}
+.animate__animated.animate__slower {
+  animation-duration: 2s !important;
+}
+*/
+
+/* --- Styling for images inside dangerouslySetInnerHTML (e.g., secret story image) --- */
+.secret-image-js { /* This class was used in storyContentsData */
+    max-width: 100%;
+    height: auto;
+    max-height: 180px; /* Example, adjust as needed */
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: block; /* For centering with margin auto if parent is text-align: center */
+    margin-left: auto;
+    margin-right: auto;
+}
+body {
+    font-family: var(--font-primary), sans-serif; 
+    }
+    .some-title {
+    font-family: var(--font-display-alt), var(--font-primary), cursive; }
+
+
+/* --- Responsive Adjustments for Global Elements (if any) --- */
+@media (max-width: 600px) {
+    /* Example: Adjust base font size for smaller screens if needed */
+    /* html {
+        font-size: 14px;
+    } */
+}
+/* styles/globals.css */
+
+/* ... (CSS Variables เดิมของคุณ เช่น --font-kanit, --font-pacifico) ... */
+/* ... (สไตล์ Global อื่นๆ ที่ไม่เกี่ยวกับ Pre-Quiz เหมือนเดิม) ... */
+
+
+/* --- PRE-QUIZ STAGE STYLES (แนวเว็บพนัน/คาสิโน) --- */
+.pre-quiz-wrapper { /* Wrapper เต็มหน้าจอสำหรับ PreQuiz */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* พื้นหลังแนวคาสิโน */
+    background-color: #1a1a1a; /* สีดำเข้ม */
+    background-image:
+        /* Radial gradient สำหรับ spotlight effect */
+        radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
+        /* ลาย pattern เล็กๆ (ตัวอย่าง: ลายจุด หรือลายข้าวหลามตัดจางๆ) */
+        /* คุณสามารถใช้ SVG background pattern หรือไฟล์รูปภาพได้ */
+        linear-gradient(45deg, rgba(50,50,50,0.1) 25%, transparent 25%, transparent 75%, rgba(50,50,50,0.1) 75%, rgba(50,50,50,0.1)),
+        linear-gradient(45deg, rgba(50,50,50,0.1) 25%, transparent 25%, transparent 75%, rgba(50,50,50,0.1) 75%, rgba(50,50,50,0.1));
+    background-size: cover, 20px 20px, 20px 20px; /* ปรับ background-size ของ pattern */
+    background-position: center, 0 0, 10px 10px; /* เลื่อน pattern ให้เหลื่อมกัน */
+
+    color: #f0e68c; /* สีทองอ่อน (Khaki) สำหรับข้อความทั่วไป */
+    z-index: 350;
+    text-align: center;
+    font-family: var(--font-kanit), 'Times New Roman', Times, serif; /* ฟอนต์หลักอาจจะยังเป็น Kanit แต่มี fallback เป็น Serif */
+}
+
+.pre-quiz-content-box {
+    background-color: rgba(10, 10, 10, 0.85); /* พื้นหลังกล่องเนื้อหาสีดำโปร่งแสง */
+    padding: 35px 45px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), /* เงาสีทองรอบนอก */
+                inset 0 0 10px rgba(0,0,0,0.5); /* เงาด้านในให้ดูมีมิติ */
+    max-width: 550px;
+    width: 90%;
+    border: 2px solid #b8860b; /* ขอบสีทองเข้ม (DarkGoldenRod) */
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.pre-quiz-title {
+    font-family: var(--font-pacifico), 'Georgia', serif; /* Pacifico หรือฟอนต์ Display หรูๆ */
+    font-size: 2.6em;
+    font-weight: normal; /* Pacifico มักจะดูดีที่ normal weight */
+    color: #ffd700; /* สีทอง (Gold) */
+    text-transform: capitalize; /* ทำให้ตัวอักษรดูหรูขึ้น */
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), /* Text glow สีทอง */
+                 1px 1px 2px rgba(0,0,0,0.5); /* เงาเข้มเล็กน้อย */
+}
+
+.pre-quiz-text {
+    font-size: 1.15em;
+    line-height: 1.7;
+    color: #fff5e1; /* สีครีม/งาช้าง */
+    margin-bottom: 20px;
+}
+
+.pre-quiz-text strong {
+    color: #ffb300; /* สีส้มทองสำหรับชื่อเพื่อน */
+    font-weight: 700;
+}
+
+.pre-quiz-subtext {
+    display: block;
+    font-size: 0.95em;
+    color: #ccc0a3; /* สีทองจางๆ */
+    margin-top: 15px;
+    font-style: italic;
+}
+.pre-quiz-subtext-secondary {
+    display: block;
+    font-size: 0.9em;
+    color: #a09376; /* สีทองที่เข้มขึ้นอีก */
+    margin-top: 10px;
+}
+
+.pre-quiz-button {
+    background: linear-gradient(180deg, #d4af37, #b8860b); /* ไล่สีทอง */
+    color: #2c1e00; /* สีน้ำตาลเข้มสำหรับข้อความบนปุ่ม */
+    border: 2px outset #DAA520; /* ขอบปุ่มให้ดูมีมิติ */
+    padding: 14px 30px;
+    font-family: var(--font-kanit), sans-serif;
+    font-size: 1.1em;
+    font-weight: 700; /* ตัวหนา */
+    border-radius: 8px; /* ปุ่มเหลี่ยมมีขอบ */
+    cursor: pointer;
+    margin-top: 35px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 -2px 2px rgba(255,255,255,0.2), inset 0 2px 0px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 1px rgba(255,223,150,0.5); /* เงาข้อความบนปุ่ม */
+}
+
+.pre-quiz-button:hover {
+    background: linear-gradient(180deg, #e6c35c, #c7942d); /* สีทองสว่างขึ้น */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 -2px 2px rgba(255,255,255,0.3), inset 0 2px 0px rgba(0,0,0,0.1);
+    border-color: #FFD700;
+}
+
+.pre-quiz-button:active {
+    transform: translateY(0px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Responsive adjustments for PreQuiz Casino Style */
+@media (max-width: 600px) {
+    .pre-quiz-content-box {
+        padding: 25px 30px;
+    }
+    .pre-quiz-title {
+        font-size: 2.2em;
+    }
+    .pre-quiz-text {
+        font-size: 1.05em;
+    }
+    .pre-quiz-button {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
 }

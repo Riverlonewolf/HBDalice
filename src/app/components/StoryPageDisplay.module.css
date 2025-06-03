@@ -1,0 +1,178 @@
+/* app/components/StoryPageDisplay.module.css */
+
+.storyPageContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px; /* Reduced padding as content box has its own */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.storyContentBox {
+    max-width: 720px; /* Slightly wider for a more cinematic feel */
+    width: 90%;
+    padding: 35px 45px; /* Adjust padding */
+    background-color: var(--story-box-bg);
+    border-radius: 12px; /* Subtly rounded corners */
+    box-shadow: var(--story-box-shadow);
+    border: 1px solid var(--story-box-border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: var(--story-text-color-main);
+}
+
+.prologueContentBox { /* Specific styles if prologue needs to be different */
+    border: 1px solid var(--story-accent-color); /* Example: golden border for prologue */
+    box-shadow: 0 0 20px rgba(var(--accent-color-rgb), 0.2);
+}
+
+.storyTitleText {
+    font-family: var(--font-playfair-display), var(--font-noto-serif-thai), serif; /* Serif for elegance */
+    font-size: 2.6em; /* Adjust size */
+    font-weight: 700;
+    color: var(--story-title-color);
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+}
+/* If title is very long, consider reducing font size on smaller screens */
+@media (max-width: 600px) {
+    .storyTitleText { font-size: 2.1em; }
+}
+
+
+.storyImg {
+    border-radius: 6px; /* Sharper corners than before */
+    margin-bottom: 25px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    border: 2px solid var(--story-text-color-subtle); /* Frame for the image */
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+    transition: opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s;
+    /* Optional: filter: grayscale(20%) sepia(10%); */
+}
+.storyImg_visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+@media (max-width: 600px) {
+    .storyImg { max-height: 200px; border-width: 2px;}
+}
+
+
+.storyTextArea {
+    font-family: var(--font-noto-serif-thai), var(--font-kanit), serif; /* Serif for story text */
+    font-size: 1.1em;
+    line-height: 1.9;
+    color: var(--story-text-color-main);
+    min-height: 80px; /* Adjust based on content */
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+    text-align: center; /* Or 'justify' for a more book-like feel */
+    max-width: 85%;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.7s ease-out 0.6s, transform 0.7s ease-out 0.6s;
+}
+.storyTextArea_visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (max-width: 600px) {
+    .storyTextArea { font-size: 1em; max-width: 95%; }
+}
+
+/* Buttons in Story Stage - more elegant style */
+.introActionButton {
+    background: var(--story-accent-color);
+    color: var(--story-bg); /* Dark text on light gold button */
+    border: none;
+    padding: 12px 30px; /* Slightly larger */
+    font-family: var(--font-kanit), sans-serif; /* Kanit for button text for clarity */
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 6px; /* Less rounded, more classic */
+    cursor: pointer;
+    margin-top: 25px;
+    transition: all 0.25s ease-out;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15), 0 0 0 1px rgba(var(--accent-color-rgb),0.5) inset;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+.introActionButton:hover {
+    background-color: hsl(from var(--story-accent-color) h s calc(l + 5%)); /* Lighten accent color */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), 0 0 0 1px var(--story-accent-color) inset;
+}
+.initialPlayBtnClass { /* If specific styling needed for the first play button */
+    /* Inherits from .introActionButton, can add specifics here */
+}
+.prologueButton { /* Style for "เริ่มเรื่องราว..." on Prologue */
+    /* Inherits from .introActionButton, can add specifics here */
+    /* Example: make it more prominent */
+    padding: 14px 40px;
+    font-size: 1.1em;
+}
+.storyNavBtn {
+    /* Inherits from .introActionButton */
+}
+
+
+/* Reveal Button - Glam Style */
+.revealBtn {
+    background-color: transparent;
+    color: var(--story-accent-color);
+    border: 1px solid var(--story-accent-color);
+    padding: 10px 22px;
+    font-family: var(--font-kanit), sans-serif;
+    font-size: 0.9em;
+    font-weight: 500;
+    border-radius: 20px; /* Keep it a bit more rounded/modern */
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.revealBtn:hover {
+    background-color: rgba(var(--accent-color-rgb), 0.1);
+    border-color: var(--story-title-color);
+    color: var(--story-title-color);
+}
+.revealBtnIcon { font-size: 1.1em; transition: transform 0.3s ease-out; }
+.revealBtn_active .revealBtnIcon { transform: rotate(180deg); }
+
+.secretContentDiv {
+    background-color: rgba(255,255,255,0.03); /* Very subtle background */
+    border: 1px dashed var(--story-text-color-subtle);
+    padding: 0 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 85%;
+    max-width: 480px;
+    /* ... (max-height, overflow, opacity, transition from previous) ... */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+                padding-top 0.7s ease-out,
+                padding-bottom 0.7s ease-out,
+                opacity 0.5s ease-out 0.2s;
+}
+.secretContentDiv_visible { max-height: 500px; padding-top: 15px; padding-bottom: 20px; opacity: 1; }
+.secretContentDiv p {
+    font-family: var(--font-noto-serif-thai), var(--font-kanit), serif;
+    font-size: 0.95em;
+    color: var(--story-text-color-subtle);
+    /* ... */
+}
+/* Ensure .secret-image-js is styled in globals.css */

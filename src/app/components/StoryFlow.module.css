@@ -1,0 +1,35 @@
+/* app/components/StoryFlow.module.css */
+
+.storyFlowWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; /* This component itself is a full-page wrapper */
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-intro); /* Defined in globals.css */
+    color: var(--intro-text-color); /* Defined in globals.css */
+    z-index: 200; /* Ensure it's correctly layered */
+    overflow: hidden; /* Prevent scrollbars from page transitions */
+    /* Entrance animation (e.g., animate__fadeIn) is handled by initialAnimationClass prop */
+}
+
+/* app/components/StoryFlow.module.css */
+.storyFlowWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--story-bg); /* <<<< ใช้พื้นหลังใหม่สำหรับ Story Stage */
+    color: var(--story-text-color-main); /* <<<< สีข้อความหลักใหม่ */
+    z-index: 200;
+    overflow: hidden;
+    /* Vignette effect for the whole story stage */
+    box-shadow: inset 0 0 120px 20px rgba(0,0,0,0.35);
+}
