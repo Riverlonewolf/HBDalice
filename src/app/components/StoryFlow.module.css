@@ -5,31 +5,40 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    display: flex; /* This component itself is a full-page wrapper */
-    justify-content: center;
-    align-items: center;
-    background: var(--bg-intro); /* Defined in globals.css */
-    color: var(--intro-text-color); /* Defined in globals.css */
-    z-index: 200; /* Ensure it's correctly layered */
-    overflow: hidden; /* Prevent scrollbars from page transitions */
-    /* Entrance animation (e.g., animate__fadeIn) is handled by initialAnimationClass prop */
+    height: 100vh; /* เต็มความสูงของ viewport */
+    display: flex;
+    justify-content: center; /* จัด StoryPageDisplay (child) ให้อยู่กลางแนวนอน */
+    align-items: flex-start; /* ให้ StoryPageDisplay (child) เริ่มจากด้านบน เมื่อเนื้อหายาวจะได้ scroll จากบนลงล่าง */
+    background: var(--story-bg); /* พื้นหลังสำหรับ Story Stage ทั้งหมด (กำหนดใน globals.css) */
+    color: var(--story-text-color-main); /* สีข้อความหลักสำหรับ Story Stage (กำหนดใน globals.css) */
+    z-index: 200; /* Layer ของ StoryFlow */
+    overflow-x: hidden; /* ป้องกันการ scroll แนวนอนที่ไม่ต้องการ */
+    overflow-y: auto;   /* สำคัญ: อนุญาตให้ scroll แนวตั้งถ้าเนื้อหาของ StoryPageDisplay ยาวเกิน */
+    padding-top: 40px;    /* ระยะห่างด้านบนภายใน wrapper */
+    padding-bottom: 60px; /* ระยะห่างด้านล่างภายใน wrapper (อาจจะเพิ่มเผื่อปุ่ม) */
+    padding-left: 20px;   /* ระยะห่างด้านข้าง */
+    padding-right: 20px;  /* ระยะห่างด้านข้าง */
+    box-sizing: border-box; /* ให้ padding รวมอยู่ใน width/height */
+    /* Vignette effect for the whole story stage (ถ้าต้องการใส่ที่นี่ แทน globals.css) */
+    /* box-shadow: inset 0 0 120px 20px rgba(0,0,0,0.35); */
 }
 
-/* app/components/StoryFlow.module.css */
-.storyFlowWrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--story-bg); /* <<<< ใช้พื้นหลังใหม่สำหรับ Story Stage */
-    color: var(--story-text-color-main); /* <<<< สีข้อความหลักใหม่ */
-    z-index: 200;
-    overflow: hidden;
-    /* Vignette effect for the whole story stage */
-    box-shadow: inset 0 0 120px 20px rgba(0,0,0,0.35);
+/*
+   หมายเหตุ:
+   - .storyFlowWrapper จะเป็น full-screen container ที่ scroll ได้
+   - StoryPageDisplay component (ที่ render ภายใน StoryFlow) จะเป็น child โดยตรง
+   - ถ้า StoryPageDisplay (โดยเฉพาะ .storyContentBox ภายในนั้น) มีเนื้อหาที่สูงกว่าพื้นที่ที่เหลือหลังจากหัก padding ของ .storyFlowWrapper,
+     scrollbar ของ .storyFlowWrapper จะทำงาน
+   - คุณไม่จำเป็นต้องใส่สไตล์ของ .storyPageContainer หรือ .storyContentBox ที่นี่อีก
+     เพราะมันควรจะอยู่ใน StoryPageDisplay.module.css
+*/
+
+/* (Optional) ถ้าคุณต้องการ animation เฉพาะสำหรับ StoryFlowWrapper ตอนที่มันปรากฏ
+   คุณสามารถเพิ่มได้ แต่ปกติ animation การเปลี่ยน stage จะถูกจัดการโดย
+   การเพิ่ม/ลบ Animate.css class ให้กับ wrapper นี้ใน app/page.js
+*/
+/*
+.storyFlowWrapper.animate__animated {
+    animation-duration: var(--animation-duration-normal, 0.8s);
 }
+*/

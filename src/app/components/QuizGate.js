@@ -24,11 +24,11 @@ export default function QuizGate({
         setShowFeedback(true);
 
         if (userAnswer === correctAnswer) {
-            setFeedback(`สุดยอดคุณเป็นตัวจริง! ถูกต้อง55555${friendName}! 🎉`);
+            setFeedback(`สุดยอดคุณเป็นหยกตัวจริง! ถูกต้อง! 🎉`);
             setFeedbackType(styles.correct);
             setTimeout(() => { if (onCorrect) onCorrect(); }, 1800);
         } else {
-            setFeedback("อุ๊ย... ผิดซะแล้ว! คุณคือ... ตัวปลอม!!!");
+            setFeedback("อุ๊ย... ผิดซะแล้ว! คุณคือ...ตัวปลอม!!!");
             setFeedbackType(styles.incorrect);
             setTimeout(() => { if (onIncorrect) onIncorrect(); }, 2000);
         }

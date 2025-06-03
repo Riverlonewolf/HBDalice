@@ -58,7 +58,8 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     width: 100vw;
-    overflow-x: hidden;
+    overflow-x: auto; 
+    overflow-y: auto;   
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -78,6 +79,7 @@ body {
     flex-direction: column;
     padding: 20px;
     text-align: center;
+    overflow-y: auto;
 }
 */
 /* Note: In the last page.js, each component (QuizGate, StoryFlow, etc.)
@@ -211,6 +213,7 @@ body {
     z-index: 350;
     text-align: center;
     font-family: var(--font-kanit), 'Times New Roman', Times, serif; /* ฟอนต์หลักอาจจะยังเป็น Kanit แต่มี fallback เป็น Serif */
+    overflow-y: auto;
 }
 
 .pre-quiz-content-box {
@@ -221,6 +224,8 @@ body {
                 inset 0 0 10px rgba(0,0,0,0.5); /* เงาด้านในให้ดูมีมิติ */
     max-width: 550px;
     width: 90%;
+    margin-top: auto; /* ถ้า pre-quiz-wrapper เป็น flex และ align-items: stretch */
+    margin-bottom: auto; /* หรือถ้าเนื้อหาน้อย จะช่วยจัดกึ่งกลางแนวตั้ง */
     border: 2px solid #b8860b; /* ขอบสีทองเข้ม (DarkGoldenRod) */
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
