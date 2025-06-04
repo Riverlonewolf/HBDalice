@@ -1,317 +1,427 @@
 /* styles/globals.css */
 
+/* === OCEAN THEME GLOBAL CSS - ธีมทะเลหวานๆ น่ารักๆ === */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables - Ocean Color Palette & General Use */
 :root {
-    /* --- Color Palette --- */
-    --primary-color: #f8cdda;         /* ชมพูพาสเทลอ่อน */
-    --secondary-color: #a7d8de;       /* ฟ้าพาสเทลอ่อน */
-    --accent-color: #ffd700;          /* ทอง */
-    --accent-color-rgb: 255, 215, 0;  /* ค่า RGB ของสีทอง สำหรับ rgba() */
+  /* Primary Ocean Colors */
+  --ocean-deep-blue: #1e3a5f;
+  --ocean-blue: #4a90e2;
+  --ocean-light-blue: #87ceeb;
+  --ocean-aqua: #7fdbda;
+  --ocean-teal: #20b2aa;
 
-    --text-color-dark: #333745;       /* สีเทาเข้มสำหรับข้อความบนพื้นสว่าง */
-    --text-color-light: #e0e1dd;      /* สีขาวนวลสำหรับข้อความบนพื้นเข้ม */
-    --text-subtle: #777;              /* สีเทาอ่อนสำหรับข้อความรอง */
+  /* Sandy Beach Colors */
+  --sand-light: #f5e6d3;
+  --sand-medium: #e6d2b5;
+  --sand-dark: #d4af8c;
 
-    --card-bg: #ffffff;
-    --shadow-color: rgba(0, 0, 0, 0.15); /* เงาที่นุ่มนวลขึ้น */
+  /* Coral & Sea Life Colors */
+  --coral-pink: #ff7f7f;
+  --coral-orange: #ffa07a;
+  --seahorse-purple: #dda0dd;
+  --seaweed-green: #98fb98;
+  --starfish-yellow: #ffd700; /* สีทอง/ดาวทะเล */
 
-    /* Background Gradients for Stages */
-    --bg-quiz: linear-gradient(135deg, #4a5568, #2d3748);      /* เทาเข้ม-น้ำเงินเข้ม */
-    --bg-intro: linear-gradient(135deg, #3a506b, #1c2541);     /* น้ำเงินเข้ม-กรมท่า */
-    --bg-gift: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* ชมพู-ฟ้า */
-    --bg-card: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* ชมพู-ฟ้า */
+  /* Neutral Colors */
+  --white: #ffffff;
+  --cream: #fef7ed;
+  --pearl: #f8f8ff;
+  --shell-gray: #e8e8e8;
 
-    /* Gift Box Specific Colors */
-    --gift-box-lid-color: #e74c3c;    /* แดงสด */
-    --gift-box-base-color: #c0392b;   /* แดงเข้ม */
-    --gift-box-ribbon-color: var(--accent-color);
+  /* Text Colors (Derived from Ocean Theme) */
+  --text-color-dark: var(--ocean-deep-blue);
+  --text-color-light: var(--cream);
+  --text-subtle: #6c8ca3; /* สีฟ้าอมเทา */
 
-    /* --- Fonts --- */
-    /* @next/font จะจัดการเรื่องนี้ผ่าน CSS Variables ที่เราตั้งใน layout.js */
-    /* --font-main: 'Kanit', sans-serif;
-    --font-display: 'Pacifico', cursive; */
-    /* เราจะใช้ var(--font-kanit) และ var(--font-pacifico) ที่มาจาก layout.js */
+  /* Background Gradients for Stages (ปรับให้เข้ากับธีมทะเล) */
+  --bg-quiz: linear-gradient(135deg, var(--ocean-light-blue), var(--ocean-aqua)); /* ฟ้าอ่อน-อควา */
+  --bg-story: linear-gradient(135deg, var(--ocean-blue), var(--ocean-teal));      /* ฟ้า-เขียวอมฟ้า */
+  --bg-gift-page: linear-gradient(135deg, var(--coral-pink), var(--coral-orange)); /* ชมพูคอรัล-ส้มคอรัล สำหรับหน้าของขวัญ */
+  --bg-card-page: linear-gradient(135deg, var(--seahorse-purple), var(--coral-pink)); /* ม่วง-ชมพู สำหรับหน้าการ์ด */
 
-    /* --- Animation Durations --- */
-    --animation-duration-fast: 0.5s;
-    --animation-duration-normal: 0.8s;
-    --animation-duration-slow: 1.2s;
+  /* Gift Box Specific Colors (จากที่คุณต้องการ) */
+  --gift-box-lid-color: #e74c3c;    /* แดงสด (คุณสามารถเปลี่ยนเป็นสีที่เข้ากับธีมทะเลได้ เช่น สีฟ้าเข้ม หรือสีม่วง) */
+  --gift-box-base-color: #c0392b;   /* แดงเข้ม */
+  --gift-box-ribbon-color: var(--starfish-yellow); /* ใช้สีดาวทะเล/ทอง เป็นริบบิ้น */
+
+  /* Shadows */
+  --soft-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+  --wave-shadow: 0 8px 25px rgba(135, 206, 235, 0.3);
+  --coral-shadow: 0 6px 20px rgba(255, 127, 127, 0.25);
+
+  /* Fonts */
+  --font-body: 'Sarabun', sans-serif;
+  --font-display: 'Mali', cursive;
+
+  /* Animation Durations */
+  --animation-duration-fast: 0.5s;
+  --animation-duration-normal: 0.8s;
+  --animation-duration-slow: 1.2s;
 }
 
-/* --- Base & Reset Styles --- */
+/* === BASE STYLES === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
+  scroll-behavior: smooth;
+  font-size: 16px; /* Base font size */
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-kanit), 'Kanit', 'Noto Sans Thai', sans-serif;
-    color: var(--text-color-dark);
-    background-color: var(--bg-quiz);
-    line-height: 1.6;
-    min-height: 100vh;
-    width: 100vw;
-    overflow-x: auto; 
-    overflow-y: auto;   
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-body);
+  background: var(--ocean-gradient); /* Default background for the app */
+  color: var(--text-color-dark);
+  line-height: 1.6;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  /* overflow-y: hidden; /* เอาออกถ้าไม่ต้องการซ่อน scrollbar ทั้งหมด */
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-/* --- Global Wrapper for Each Stage (used by page.js) --- */
-/* This class can be applied to the main div of each stage component if they manage their own full screen */
-/* Or to a wrapper div in page.js */
-/*
+
+/* Animated Ocean Background (Optional - ถ้าต้องการให้มี animation ตลอด) */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(135,206,235,0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(127,219,218,0.3) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(152,251,152,0.15) 0%, transparent 60%);
+  animation: float 20s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+/* === STAGE WRAPPER STYLES === */
+/* This wrapper can be used by each main page component (Quiz, StoryFlow, Gift, Card) */
 .page-stage-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    text-align: center;
-    overflow-y: auto;
-}
-*/
-/* Note: In the last page.js, each component (QuizGate, StoryFlow, etc.)
-   is expected to have its own full-page wrapper with background.
-   So a generic .page-stage-wrapper might not be strictly needed here
-   if each component handles its own full screen styling.
-*/
-
-
-/* --- Global Animation Keyframes --- */
-
-/* Pulse text for instructions */
-@keyframes pulseTextGlobal {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.02); }
+  min-height: 100vh;
+  height: 100vh; /* Fix height to viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  overflow: hidden; /* Prevent scrolling on the stage itself */
 }
 
-/* Confetti Animation */
-@keyframes fallGlobal {
-    0% {
-        transform: translateY(-20vh) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(120vh) rotate(720deg);
-        opacity: 0;
-    }
+/* --- STYLES FOR SPECIFIC STAGES --- */
+
+/* Pre-Quiz Stage (Ocean Theme) */
+.pre-quiz-wrapper { /* This class applied to the main div of PreQuizPage component */
+  /* background: var(--bg-quiz); /* Can use specific background from variables */
+  /* The .page-stage-wrapper already has display flex, etc. */
+}
+.pre-quiz-content-box {
+  background: linear-gradient(135deg, var(--white) 0%, var(--cream) 100%);
+  border-radius: 25px;
+  padding: 40px 35px;
+  text-align: center;
+  box-shadow: var(--wave-shadow);
+  border: 3px solid var(--ocean-light-blue);
+  position: relative;
+  max-width: 500px;
+  width: 90%;
+  overflow: hidden;
+  margin: 20px;
+  animation: animate__animated animate__zoomIn var(--animation-duration-normal);
+}
+.pre-quiz-content-box::before { /* Decorative element */
+  
+  position:  var(--sand-medium);
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--coral-pink);
+  color: var(--white);
+  padding: 8px 20px;
+  border-radius: 15px;
+  font-size: 14px;
+  box-shadow: var(--coral-shadow);
+  animation: gentle-sway 3s ease-in-out infinite alternate;
+  z-index: 1;
+}
+/* ... (other .pre-quiz- styles from your ocean theme) ... */
+.pre-quiz-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--ocean-deep-blue);
+  margin-top: 15px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(74, 144, 226, 0.2);
+  position: relative;
+}
+.pre-quiz-title::after {
+  content: '🌊';
+  display: inline-block;
+  margin-left: 10px;
+  animation: wave-emoji 2s ease-in-out infinite;
+}
+.pre-quiz-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--ocean-blue);
+  line-height: 1.7;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+.pre-quiz-text strong {
+    color: var(--coral-orange);
+    font-weight: 600;
+}
+.pre-quiz-subtext {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--coral-pink);
+  margin-bottom: 30px;
+  font-weight: 500;
+  font-style: italic;
+}
+.pre-quiz-button {
+  background: linear-gradient(135deg, var(--coral-orange) 0%, var(--coral-pink) 100%);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 35px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--coral-shadow);
+  position: relative;
+  overflow: hidden;
+  text-transform: none;
+  margin-top: 20px;
+}
+.pre-quiz-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s ease-out;
+}
+.pre-quiz-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 127, 127, 0.4);
+}
+.pre-quiz-button:hover::before { left: 100%; }
+.pre-quiz-button:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 4px 15px rgba(255, 127, 127, 0.3);
 }
 
-/* Global Confetti Styles (if createConfetti uses these classes) */
-.confetti-global {
-    width: 8px;
-    height: 15px;
-    background-color: var(--primary-color);
-    position: absolute; /* Will be positioned by JS */
-    opacity: 0.7;
-    animation: fallGlobal 5s linear infinite;
-    pointer-events: none; /* Ensure confetti doesn't block clicks */
-}
 
-.confetti-global.shape2 {
-    background-color: var(--secondary-color);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+/* Quiz Gate Stage */
+.quiz-gate-wrapper { /* Applied to QuizGatePage main div */
+  background: var(--bg-quiz); /* Example specific background */
 }
-
-.confetti-global.shape3 {
-    background-color: var(--accent-color);
-    transform: rotate(45deg); /* Initial rotation, animation handles the fall rotation */
-}
+/* ... (Add specific styles for QuizGate content if needed, similar to .pre-quiz-content-box) ... */
 
 
-/* --- Global Helper Classes (Optional) --- */
-.text-center {
-    text-align: center;
+/* Story Flow Stage */
+.story-flow-main-wrapper { /* Applied to the main div in OurStoryPage that wraps StoryFlow */
+  background: var(--bg-story);
+  width: 100%; /* StoryFlow itself will be a child and might not need background */
+}
+/* Styles for StoryPageDisplay and Typewriter will be in their .module.css */
+
+
+/* Gift Box Page Stage */
+.gift-page-wrapper { /* Applied to GiftPage main div */
+  background: var(--bg-gift-page);
+}
+.gift-box-container { /* Container for the gift box image and text */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: rgba(var(--white), 0.8); /* Semi-transparent white */
+  box-shadow: var(--soft-shadow);
+}
+.gift-image-wrapper {
+  cursor: pointer;
+  position: relative; /* For sparkles or other effects */
+}
+.gift-image-closed {
+  /* Styles for the closed gift box image if needed */
+  /* Example: using SVG or pseudo-elements for the box */
+  width: 150px;
+  height: 150px;
+  background-color: var(--gift-box-base-color);
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.gift-image-closed::before { /* Lid */
+  content: '';
+  position: absolute;
+  top: -20px; /* Adjust for lid height */
+  left: -5px; /* Adjust for lid overhang */
+  right: -5px;
+  height: 40px; /* Lid height */
+  background-color: var(--gift-box-lid-color);
+  border-radius: 8px 8px 0 0;
+  border: 2px solid darken(var(--gift-box-lid-color), 10%);
+}
+.gift-image-closed::after { /* Ribbon */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  right: -10px;
+  height: 25px; /* Ribbon height */
+  background-color: var(--gift-box-ribbon-color);
+  transform: translateY(-50%);
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+}
+/* You would typically use actual <img> tags and switch src for open/closed states */
+
+
+/* Birthday Card Page Stage */
+.card-page-wrapper { /* Applied to BirthdayCardPage main div */
+  background: var(--bg-card-page);
+}
+.birthday-card-content {
+  background-color: var(--cream);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: var(--coral-shadow);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  color: var(--ocean-deep-blue);
+  animation: animate__animated animate__bounceInDown var(--animation-duration-normal);
+}
+.birthday-card-title {
+  font-family: var(--font-display);
+  font-size: 2.5em;
+  color: var(--coral-pink);
+  margin-bottom: 15px;
+}
+.birthday-card-message {
+  font-size: 1.1em;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+.birthday-card-signature {
+  font-style: italic;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
-.hidden {
-    display: none !important; /* Force hide */
-}
 
-/* Utility classes from Animate.css are imported via JS,
-   but you can override durations here if needed, e.g.: */
-/*
-.animate__animated.animate__fast {
-  animation-duration: var(--animation-duration-fast) !important;
+/* --- GLOBAL ANIMATION KEYFRAMES --- */
+@keyframes float {
+  0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+  25% { transform: translateX(-15px) translateY(-10px) rotate(-0.5deg); }
+  50% { transform: translateX(0px) translateY(15px) rotate(0deg); }
+  75% { transform: translateX(15px) translateY(-5px) rotate(0.5deg); }
 }
-.animate__animated.animate__slower {
-  animation-duration: 2s !important;
+@keyframes gentle-sway {
+  0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+  50% { transform: translateX(-50%) rotate(3deg); }
 }
-*/
+@keyframes wave-emoji {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(15deg); }
+  50% { transform: scale(1) rotate(0deg); }
+  75% { transform: scale(1.1) rotate(-15deg); }
+}
+/* Add other keyframes like pulseTextGlobal, fallGlobal if still used */
 
-/* --- Styling for images inside dangerouslySetInnerHTML (e.g., secret story image) --- */
-.secret-image-js { /* This class was used in storyContentsData */
+
+/* --- GLOBAL HELPER CLASSES --- */
+.text-center { text-align: center; }
+.hidden { display: none !important; }
+
+
+/* --- Styling for images inside dangerouslySetInnerHTML --- */
+.secret-image-js {
     max-width: 100%;
     height: auto;
-    max-height: 180px; /* Example, adjust as needed */
-    border-radius: 8px;
-    margin-top: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    display: block; /* For centering with margin auto if parent is text-align: center */
+    max-height: 200px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: var(--soft-shadow);
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
-body {
-    font-family: var(--font-primary), sans-serif; 
-    }
-    .some-title {
-    font-family: var(--font-display-alt), var(--font-primary), cursive; }
 
-
-/* --- Responsive Adjustments for Global Elements (if any) --- */
-@media (max-width: 600px) {
-    /* Example: Adjust base font size for smaller screens if needed */
-    /* html {
-        font-size: 14px;
-    } */
-}
-/* styles/globals.css */
-
-/* ... (CSS Variables เดิมของคุณ เช่น --font-kanit, --font-pacifico) ... */
-/* ... (สไตล์ Global อื่นๆ ที่ไม่เกี่ยวกับ Pre-Quiz เหมือนเดิม) ... */
-
-
-/* --- PRE-QUIZ STAGE STYLES (แนวเว็บพนัน/คาสิโน) --- */
-.pre-quiz-wrapper { /* Wrapper เต็มหน้าจอสำหรับ PreQuiz */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    /* พื้นหลังแนวคาสิโน */
-    background-color: #1a1a1a; /* สีดำเข้ม */
-    background-image:
-        /* Radial gradient สำหรับ spotlight effect */
-        radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 60%),
-        /* ลาย pattern เล็กๆ (ตัวอย่าง: ลายจุด หรือลายข้าวหลามตัดจางๆ) */
-        /* คุณสามารถใช้ SVG background pattern หรือไฟล์รูปภาพได้ */
-        linear-gradient(45deg, rgba(50,50,50,0.1) 25%, transparent 25%, transparent 75%, rgba(50,50,50,0.1) 75%, rgba(50,50,50,0.1)),
-        linear-gradient(45deg, rgba(50,50,50,0.1) 25%, transparent 25%, transparent 75%, rgba(50,50,50,0.1) 75%, rgba(50,50,50,0.1));
-    background-size: cover, 20px 20px, 20px 20px; /* ปรับ background-size ของ pattern */
-    background-position: center, 0 0, 10px 10px; /* เลื่อน pattern ให้เหลื่อมกัน */
-
-    color: #f0e68c; /* สีทองอ่อน (Khaki) สำหรับข้อความทั่วไป */
-    z-index: 350;
-    text-align: center;
-    font-family: var(--font-kanit), 'Times New Roman', Times, serif; /* ฟอนต์หลักอาจจะยังเป็น Kanit แต่มี fallback เป็น Serif */
-    overflow-y: auto;
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  .pre-quiz-content-box, .birthday-card-content, .gift-box-container {
+    padding: 30px 25px;
+    margin: 15px;
+  }
+  .pre-quiz-title, .birthday-card-title {
+    font-size: 1.9rem;
+  }
+  .pre-quiz-text, .birthday-card-message {
+    font-size: 1rem;
+  }
+  .pre-quiz-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
 }
 
-.pre-quiz-content-box {
-    background-color: rgba(10, 10, 10, 0.85); /* พื้นหลังกล่องเนื้อหาสีดำโปร่งแสง */
-    padding: 35px 45px;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), /* เงาสีทองรอบนอก */
-                inset 0 0 10px rgba(0,0,0,0.5); /* เงาด้านในให้ดูมีมิติ */
-    max-width: 550px;
-    width: 90%;
-    margin-top: auto; /* ถ้า pre-quiz-wrapper เป็น flex และ align-items: stretch */
-    margin-bottom: auto; /* หรือถ้าเนื้อหาน้อย จะช่วยจัดกึ่งกลางแนวตั้ง */
-    border: 2px solid #b8860b; /* ขอบสีทองเข้ม (DarkGoldenRod) */
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-}
+@media (max-width: 480px) {
+  html { font-size: 15px; } /* Slightly smaller base font for very small screens */
+  body { line-height: 1.5; }
 
-.pre-quiz-title {
-    font-family: var(--font-pacifico), 'Georgia', serif; /* Pacifico หรือฟอนต์ Display หรูๆ */
-    font-size: 2.6em;
-    font-weight: normal; /* Pacifico มักจะดูดีที่ normal weight */
-    color: #ffd700; /* สีทอง (Gold) */
-    text-transform: capitalize; /* ทำให้ตัวอักษรดูหรูขึ้น */
-    letter-spacing: 1px;
+  .pre-quiz-content-box, .birthday-card-content, .gift-box-container {
+    padding: 25px 20px;
+    border-width: 2px;
+  }
+  .pre-quiz-title, .birthday-card-title {
+    font-size: 1.7rem;
+    margin-bottom: 15px;
+  }
+  .pre-quiz-text, .birthday-card-message {
+    font-size: 0.95rem;
+  }
+  .pre-quiz-subtext {
+    font-size: 0.85rem;
     margin-bottom: 25px;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.7), /* Text glow สีทอง */
-                 1px 1px 2px rgba(0,0,0,0.5); /* เงาเข้มเล็กน้อย */
+  }
+  .pre-quiz-button {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 20px;
+  }
+  .pre-quiz-content-box::before {
+    font-size: 12px;
+    padding: 6px 15px;
+    top: -12px;
+  }
 }
 
-.pre-quiz-text {
-    font-size: 1.15em;
-    line-height: 1.7;
-    color: #fff5e1; /* สีครีม/งาช้าง */
-    margin-bottom: 20px;
-}
-
-.pre-quiz-text strong {
-    color: #ffb300; /* สีส้มทองสำหรับชื่อเพื่อน */
-    font-weight: 700;
-}
-
-.pre-quiz-subtext {
-    display: block;
-    font-size: 0.95em;
-    color: #ccc0a3; /* สีทองจางๆ */
-    margin-top: 15px;
-    font-style: italic;
-}
-.pre-quiz-subtext-secondary {
-    display: block;
-    font-size: 0.9em;
-    color: #a09376; /* สีทองที่เข้มขึ้นอีก */
-    margin-top: 10px;
-}
-
-.pre-quiz-button {
-    background: linear-gradient(180deg, #d4af37, #b8860b); /* ไล่สีทอง */
-    color: #2c1e00; /* สีน้ำตาลเข้มสำหรับข้อความบนปุ่ม */
-    border: 2px outset #DAA520; /* ขอบปุ่มให้ดูมีมิติ */
-    padding: 14px 30px;
-    font-family: var(--font-kanit), sans-serif;
-    font-size: 1.1em;
-    font-weight: 700; /* ตัวหนา */
-    border-radius: 8px; /* ปุ่มเหลี่ยมมีขอบ */
-    cursor: pointer;
-    margin-top: 35px;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), inset 0 -2px 2px rgba(255,255,255,0.2), inset 0 2px 0px rgba(0,0,0,0.2);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    text-shadow: 1px 1px 1px rgba(255,223,150,0.5); /* เงาข้อความบนปุ่ม */
-}
-
-.pre-quiz-button:hover {
-    background: linear-gradient(180deg, #e6c35c, #c7942d); /* สีทองสว่างขึ้น */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), inset 0 -2px 2px rgba(255,255,255,0.3), inset 0 2px 0px rgba(0,0,0,0.1);
-    border-color: #FFD700;
-}
-
-.pre-quiz-button:active {
-    transform: translateY(0px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(0,0,0,0.4);
-}
-
-/* Responsive adjustments for PreQuiz Casino Style */
-@media (max-width: 600px) {
-    .pre-quiz-content-box {
-        padding: 25px 30px;
-    }
-    .pre-quiz-title {
-        font-size: 2.2em;
-    }
-    .pre-quiz-text {
-        font-size: 1.05em;
-    }
-    .pre-quiz-button {
-        padding: 12px 25px;
-        font-size: 1em;
-    }
-}
+/* Utility Classes from Ocean Theme (if needed globally) */
+.text-ocean { color: var(--ocean-blue) !important; }
+.text-coral { color: var(--coral-pink) !important; }
+/* ... and so on ... */

@@ -24,7 +24,7 @@ export default function QuizGate({
         setShowFeedback(true);
 
         if (userAnswer === correctAnswer) {
-            setFeedback(`สุดยอดคุณเป็นหยกตัวจริง! ถูกต้อง! 🎉`);
+            setFeedback(`สุดยอดคุณเป็นอลิซตัวจริง! ถูกต้อง! 🎉`);
             setFeedbackType(styles.correct);
             setTimeout(() => { if (onCorrect) onCorrect(); }, 1800);
         } else {
@@ -52,7 +52,7 @@ export default function QuizGate({
             <div className={`${styles.quizContentBox} animate__animated animate__fadeInUp animate__faster`}> {/* เปลี่ยน animation */}
                 <h2 className={styles.quizTitleText}>
                     <span className={styles.quizTitleIcon}></span> {/* Icon (คุณสามารถใส่ SVG หรือ <img> ที่นี่) */}
-                    เดี๋ยวก่อน!!!
+                    คำถาม ?
                 </h2>
                 <p className={styles.quizQuestionP}>{question}</p>
                 <div className={styles.quizOptionsDiv}>

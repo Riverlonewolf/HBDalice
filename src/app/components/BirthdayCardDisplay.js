@@ -102,7 +102,7 @@ export default function BirthdayCardDisplay({ friendName, yourName, wishText, an
                         <div className={styles.titleSection}>
                             <h1 className={styles.mainTitle}>Happy Birthday</h1>
                             <div className={styles.decorativeLine}></div>
-                            <h2 className={styles.nameTitle}>{friendName}</h2>
+                            <h2 className={styles.nameTitle}>Alice</h2>
                         </div>
                     </header>
 
